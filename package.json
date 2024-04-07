@@ -1,0 +1,14 @@
+{
+  "name": "restful-api-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Nguyen-Van-Mao_2024_04_07_restAPI_test_task.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "Mao Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

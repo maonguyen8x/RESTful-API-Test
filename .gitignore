@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+.scannerwork
+sonar.sh
+.idea
