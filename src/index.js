@@ -53,8 +53,8 @@ app.get("/files", async (req, res) => {
 app.get("/files/:filename", async (req, res) => {
   try {
     const { filename } = req.params;
-    const filePath = path.join(filesDir, `${filename}.json`);
-    const data = await fs.readFile(filePath, "utf8");
+    // const filePath = path.join(filesDir, `${filename}.json`);
+    const data = await fs.readFile(dDriveDir, "utf8");
     // const data = await fs.readFile(`./files/${filename}.json`, "utf8");
     res.status(200).json(JSON.parse(data));
   } catch (error) {
@@ -68,8 +68,8 @@ app.put("/files/:filename", async (req, res) => {
   try {
     const { filename } = req.params;
     const { data } = req.body;
-    const filePath = path.join(filesDir, `${filename}.json`);
-    await fs.writeFile(filePath, JSON.stringify(data));
+    // const filePath = path.join(filesDir, `${filename}.json`);
+    await fs.writeFile(dDriveDir, JSON.stringify(data));
     // await fs.writeFile(`./files/${filename}.json`, JSON.stringify(data));
     res.status(200).send("File updated successfully");
   } catch (error) {
@@ -82,8 +82,8 @@ app.put("/files/:filename", async (req, res) => {
 app.delete("/files/:filename", async (req, res) => {
   try {
     const { filename } = req.params;
-    const filePath = path.join(filesDir, `${filename}.json`);
-    await fs.unlink(filePath);
+    // const filePath = path.join(filesDir, `${filename}.json`);
+    await fs.unlink(dDriveDir);
     // await fs.unlink(`./files/${filename}.json`);
     res.status(200).send("File deleted successfully");
   } catch (error) {
