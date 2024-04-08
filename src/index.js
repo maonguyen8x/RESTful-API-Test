@@ -6,10 +6,12 @@ const path = require("path");
 // Initialize Express app
 const app = express();
 const PORT = process.env.PORT || 3000;
-const filesDir = path.join(__dirname, "files");
 
 // Middleware for JSON parsing
 app.use(express.json());
+
+const dDriveDir = "D://files//data.json";
+const filesDir = path.join(__dirname, "files");
 
 // Endpoint to create a new file with JSON data
 app.post("/files", async (req, res) => {
@@ -20,10 +22,13 @@ app.post("/files", async (req, res) => {
       return res.status(400).send("Filename and data are required");
     }
 
-    // Construct the file path
+    // Create the file path
     const filePath = path.join(filesDir, `${filename}.json`);
 
-    await fs.writeFile(filePath, JSON.stringify(data));
+    // Write the JSON data to the file
+    await fs.writeFile(dDriveDir, JSON.stringify(data));
+
+    // Send a success response
     res.status(201).send("File created successfully");
   } catch (error) {
     console.log("File read failed:", err);
@@ -35,7 +40,7 @@ app.post("/files", async (req, res) => {
 // Endpoint to retrieve a list of all files
 app.get("/files", async (req, res) => {
   try {
-    const files = await fs.readdir(filesDir);
+    const files = await fs.readdir(dDriveDir);
     // const files = await fs.readdir("./files");
     res.status(200).json(files);
   } catch (error) {
