@@ -81,14 +81,23 @@ app.put("/files/:filename", async (req, res) => {
 // Endpoint to delete a file
 app.delete("/files/:filename", async (req, res) => {
   try {
-    const { filename } = req.params;
-    // const filePath = path.join(filesDir, `${filename}.json`);
+    // Check if the file exists before deleting
+    const fileExists = await fs
+      .access(dDriveDir)
+      .then(() => true)
+      .catch(() => false);
+
+    if (!fileExists) {
+      return res.status(404).send("File not found");
+    }
+
+    // Delete file
     await fs.unlink(dDriveDir);
-    // await fs.unlink(`./files/${filename}.json`);
+
     res.status(200).send("File deleted successfully");
   } catch (error) {
     console.error(error);
-    res.status(404).send("File not found");
+    res.status(404).send("Internal Server Error");
   }
 });
 
